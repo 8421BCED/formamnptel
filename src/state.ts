@@ -19,6 +19,7 @@ export type Action =
   | { type: 'jump'; index: number }
   | { type: 'submit'; at: number }
   | { type: 'discard' }
+  | { type: 'clearHistory' }
 
 function submit(state: AppState, at: number): AppState {
   const { session } = state
@@ -61,6 +62,15 @@ export function reducer(state: AppState, action: Action): AppState {
 
     case 'submit':
       return submit(state, action.at)
+
+    case 'clearHistory':
+      // Removes the list of attempts and the saved finished result. An exam that is still in progress is kept.
+      return {
+        ...state,
+        history: [],
+        session: session && session.submittedAt === null ? session : null,
+        screen: state.screen === 'result' ? 'home' : state.screen,
+      }
 
     case 'discard':
       return { ...state, screen: 'home', session: null }

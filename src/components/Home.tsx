@@ -18,6 +18,7 @@ const pctClass = (p: number) => (p >= 70 ? 'pct--hi' : p >= 40 ? 'pct--mid' : 'p
 export function Home({ state, dispatch }: Props) {
   const { session, history } = state
   const [confirmDiscard, setConfirmDiscard] = useState(false)
+  const [confirmClear, setConfirmClear] = useState(false)
 
   // Chosen once when the page loads, so the wording does not change while she is looking at it.
   const [hello] = useState(() =>
@@ -155,9 +156,14 @@ export function Home({ state, dispatch }: Props) {
 
       {history.length > 0 && (
         <section aria-labelledby="history-heading">
-          <h2 id="history-heading" className="section-title">
-            Recent attempts
-          </h2>
+          <div className="between wrap">
+            <h2 id="history-heading" className="section-title">
+              Recent attempts
+            </h2>
+            <button className="link" onClick={() => setConfirmClear(true)}>
+              Clear history
+            </button>
+          </div>
           <div className="card table-wrap">
             <table className="table">
               <thead>
@@ -193,6 +199,22 @@ export function Home({ state, dispatch }: Props) {
             </table>
           </div>
         </section>
+      )}
+
+      {confirmClear && (
+        <ConfirmDialog
+          title="Clear your practice history?"
+          confirmLabel="Clear history"
+          danger
+          onCancel={() => setConfirmClear(false)}
+          onConfirm={() => {
+            setConfirmClear(false)
+            dispatch({ type: 'clearHistory' })
+          }}
+        >
+          This removes the list of attempts, your progress figures and your last saved result from this device.
+          {inProgress ? ' The exam you are in the middle of is not affected.' : ''}
+        </ConfirmDialog>
       )}
 
       {confirmDiscard && (
