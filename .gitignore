@@ -9,3 +9,6 @@ dist
 
 # editor / assistant state
 .claude/
+
+.vercel
+.env*

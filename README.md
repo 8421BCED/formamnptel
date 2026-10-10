@@ -16,6 +16,13 @@ npm test         # unit tests (exam engine + question-bank validation)
 npm run build    # type-check + production build into dist/
 ```
 
+## Live site
+
+**https://java-practice-room.vercel.app** (Vercel project `java-practice-room`).
+
+To publish a change, run `npx vercel deploy --prod` from this folder. Once the Vercel account has a GitHub login
+connection, run `npx vercel git connect` once and every `git push` to `main` will redeploy automatically.
+
 ## Deploy to Vercel
 
 Either:
