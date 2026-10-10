@@ -1,0 +1,11 @@
+node_modules
+dist
+.vercel
+*.local
+
+# private working files: raw question dumps (they include personal submission details) and planning notes
+/weeks/
+/plans/
+
+# editor / assistant state
+.claude/
